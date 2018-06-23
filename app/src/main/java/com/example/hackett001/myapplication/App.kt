@@ -13,7 +13,6 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         initDaggerComponent()
-
     }
 
     fun getComponent(): ApplicationComponent = applicationComponent
@@ -24,6 +23,6 @@ class App : Application() {
                 .applicationModule(ApplicationModule(this))
                 .build()
 
-        applicationComponent?.inject(this)
+        applicationComponent.inject(this)
     }
 }

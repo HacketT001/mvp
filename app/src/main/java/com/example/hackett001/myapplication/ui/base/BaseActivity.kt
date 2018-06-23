@@ -2,22 +2,23 @@ package com.example.hackett001.myapplication.ui.base
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.Gravity
 import android.view.View
 import android.view.View.GONE
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.RelativeLayout
-import android.widget.ProgressBar
-import android.widget.Toast
+import android.widget.*
 import com.example.hackett001.myapplication.App
+import com.example.hackett001.myapplication.R
 import com.example.hackett001.myapplication.di.component.ActivityComponent
 import com.example.hackett001.myapplication.di.component.DaggerActivityComponent
 import com.example.hackett001.myapplication.di.module.ActivityModule
+import java.lang.reflect.Parameter
 
 
 open class BaseActivity : AppCompatActivity(), MvpView {
 
-    private var progressBar: ProgressBar? = null
+    private var progressLayout: FrameLayout? = null
 
     private lateinit var activityComponent: ActivityComponent
 
@@ -31,18 +32,16 @@ open class BaseActivity : AppCompatActivity(), MvpView {
 
     }
 
-    fun getActivityComponent() : ActivityComponent = activityComponent
+    fun getActivityComponent(): ActivityComponent = activityComponent
 
     override fun showLoding() {
         hideLoading()
 
-        progressBar = ProgressBar(this, null, android.R.attr.progressBarStyleLarge)
+        if (progressLayout == null)
+            progressLayout = layoutInflater.inflate(R.layout.item_progress_bar, progressLayout) as FrameLayout
 
-        val params = RelativeLayout.LayoutParams(100, 100)
-        params.addRule(RelativeLayout.CENTER_IN_PARENT)
-
-        (window.decorView.rootView as ViewGroup).addView(progressBar, params)
-        progressBar?.visibility = View.VISIBLE
+        (window.decorView as ViewGroup).addView(progressLayout)
+        progressLayout?.visibility = View.VISIBLE
     }
 
     override fun disableInteraction() {
@@ -55,7 +54,7 @@ open class BaseActivity : AppCompatActivity(), MvpView {
     }
 
     override fun hideLoading() {
-        progressBar?.visibility = View.GONE
+        progressLayout?.visibility = View.GONE
     }
 
     override fun onError(message: String) {

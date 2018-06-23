@@ -2,6 +2,7 @@ package com.example.hackett001.myapplication.ui.main
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.widget.Toast
 import com.example.hackett001.myapplication.R
 import com.example.hackett001.myapplication.ui.base.BaseActivity
@@ -20,6 +21,8 @@ class MainActivity: BaseActivity(), MainMvpView {
         getActivityComponent().inject(this)
 
         presenter.onAttach(this)
+
+        Log.d("PRESENTER", presenter.toString())
     }
 
 
