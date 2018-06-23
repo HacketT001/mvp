@@ -19,7 +19,7 @@ open class BaseActivity : AppCompatActivity(), MvpView {
 
     private var progressBar: ProgressBar? = null
 
-    private var activityComponent: ActivityComponent? = null
+    private lateinit var activityComponent: ActivityComponent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +30,8 @@ open class BaseActivity : AppCompatActivity(), MvpView {
                 .build()
 
     }
+
+    fun getActivityComponent() : ActivityComponent = activityComponent
 
     override fun showLoding() {
         hideLoading()
